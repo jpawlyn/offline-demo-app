@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   root "home#index"
 
   get "show" => "home#show"
+  get "online-only" => "home#online_only"
 end

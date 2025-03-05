@@ -7,9 +7,10 @@ importScripts(
 const cacheExpirationInSeconds = 1 * 60;
 const SW_IMAGE_CACHE_VERSION = 'v1';
 
-const { CacheFirst, NetworkFirst } = workbox.strategies;
+const { CacheFirst, NetworkFirst, NetworkOnly } = workbox.strategies;
 const { registerRoute } = workbox.routing;
 const { ExpirationPlugin } = workbox.expiration;
+const networkOnlyUrls = ['/online-only'];
 
 self.skipWaiting();
 
@@ -21,7 +22,7 @@ registerRoute(
     cacheName: 'assets-styles-and-scripts',
     plugins: [
       new ExpirationPlugin({
-        maxEntries: 20
+        maxEntries: 100
       })
     ]
   })
@@ -38,9 +39,15 @@ registerRoute(
   })
 )
 
+registerRoute(
+  ({ request, url }) => networkOnlyUrls.includes(url.pathname),
+  new NetworkOnly()
+)
+
 // For pages, network first
 const documentsStrategyOptions = {
   cacheName: 'documents',
+  matchOptions: { ignoreVary: true },
   plugins: [
     new ExpirationPlugin({
       maxAgeSeconds: cacheExpirationInSeconds
@@ -48,6 +55,7 @@ const documentsStrategyOptions = {
   ]
 }
 
+// see https://developer.chrome.com/docs/workbox/modules/workbox-routing
 registerRoute(
   ({ request, url }) => request.destination === 'document' ||
     request.destination === '',

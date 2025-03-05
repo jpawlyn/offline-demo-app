@@ -5,6 +5,6 @@ class HomeController < ApplicationController
   def show
   end
 
-  def offline
+  def online_only
   end
 end
