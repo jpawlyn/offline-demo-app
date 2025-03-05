@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Created with the command:
+```sh
+rails new offline-app --skip-action-cable --skip-action-mailer --skip-action-mailbox --skip-test --skip-system-test --skip-solid --css tailwind
+```
 
-Things you may want to cover:
+See:
+* https://alicia-paz.medium.com/make-your-rails-app-work-offline-part-1-pwa-setup-3abff8666194
+* https://alicia-paz.medium.com/make-your-rails-app-work-offline-part-2-caching-assets-and-adding-an-offline-fallback-334729ade904
+* https://alicia-paz.medium.com/make-your-rails-app-work-offline-part-3-crud-actions-with-indexeddb-and-stimulus-ad669fe0141c
 
-* Ruby version
+* https://dev.to/mikerogers0/how-to-make-rails-work-offline-pwa-p05
 
-* System dependencies
+* https://blog.codeminer42.com/everything-you-need-to-ace-pwas/
+* https://blog.codeminer42.com/everything-you-need-to-ace-pwas-in-rails-part-ii/
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* https://blog.railsforgedev.com/how-to-build-a-progressive-web-app-with-ruby-on-rails-8-a-complete-guide
