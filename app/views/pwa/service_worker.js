@@ -44,7 +44,7 @@ const documentsStrategyOptions = {
   plugins: [
     new ExpirationPlugin({
       maxAgeSeconds: cacheExpirationInSeconds
-   })
+    })
   ]
 }
 
