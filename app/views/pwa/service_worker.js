@@ -4,6 +4,13 @@ importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/7.3.0/workbox-sw.js"
 );
 
+// workbox sw chrome console logging is on by default for localhost
+// to turn on for other hosts uncomment the code below
+// see https://developer.chrome.com/docs/workbox/troubleshooting-and-logging#without_a_bundler
+// workbox.setConfig({
+//   debug: true // or add .erb to the filename and use <%= !Rails.env.production? %>
+// });
+
 const updateServiceWorker = '1' // Increment this value if offline fallback page changes so it gets re-cached
 const cacheExpirationInSeconds = 1 * 60;
 const SW_IMAGE_CACHE_VERSION = 'v1';
