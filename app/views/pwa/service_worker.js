@@ -4,6 +4,7 @@ importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/7.3.0/workbox-sw.js"
 );
 
+const updateServiceWorker = '1' // Increment this value if offline fallback page changes so it gets re-cached
 const cacheExpirationInSeconds = 1 * 60;
 const SW_IMAGE_CACHE_VERSION = 'v1';
 
@@ -33,7 +34,7 @@ registerRoute(
     cacheName: `assets-images-${SW_IMAGE_CACHE_VERSION}`,
     plugins: [
       new ExpirationPlugin({
-        maxEntries: 20
+        maxEntries: 100
       })
     ]
   })
@@ -50,7 +51,7 @@ const documentsStrategyOptions = {
   matchOptions: { ignoreVary: true },
   plugins: [
     new ExpirationPlugin({
-      maxAgeSeconds: cacheExpirationInSeconds
+      maxEntries: 100
     })
   ]
 }
