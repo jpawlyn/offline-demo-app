@@ -1,8 +1,10 @@
-# Demo Offline App
+# Offline Demo App
 
 This is a simple Ruby on Rails app to show how a service worker can be used to pre-cache pages and display them offline. The app also shows an offline fallback for a page that is explicitly not cached by the service worker.
 
 **Note** Service workers are complicated so please use this demo for ideas and nothing more. A real life example of a sophisticated offline capable Rails app is the [Rails World Conference App](https://github.com/TelosLabs/rails-world).
+
+Any suggestions for improvements are welcome.
 
 Handy references include:
 * https://alicia-paz.medium.com/make-your-rails-app-work-offline-part-1-pwa-setup-3abff8666194
