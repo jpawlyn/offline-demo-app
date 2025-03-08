@@ -5,10 +5,10 @@ importScripts(
 );
 
 // workbox sw chrome console logging is on by default for localhost
-// to turn on for other hosts uncomment the code below
+// but let's turn it on for production too
 // see https://developer.chrome.com/docs/workbox/troubleshooting-and-logging#without_a_bundler
 workbox.setConfig({
-  debug: <%= !Rails.env.production? %>
+  debug: true
 });
 
 const updateServiceWorker = '1' // Increment this value if offline fallback page changes so it gets re-cached
@@ -19,6 +19,12 @@ const { registerRoute } = workbox.routing;
 const { ExpirationPlugin } = workbox.expiration;
 
 self.skipWaiting();
+
+// ensure that the service worker takes control immediately without requiring a reload
+// see https://frontendian.co/service-workers
+self.addEventListener('activate', event => {
+  clients.claim()
+})
 
 // For assets (scripts, styles and images), we use cache first
 registerRoute(
@@ -73,12 +79,6 @@ registerRoute(
     request.destination === ''),
   new NetworkFirst(documentsStrategyOptions)
 )
-
-self.addEventListener('message', (event) => {
-  if (event.data === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-});
 
 // Warm runtime cache so urls are cached before they are visited
 const { warmStrategyCache } = workbox.recipes;
