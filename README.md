@@ -2,7 +2,7 @@
 
 This is a simple Ruby on Rails app to show how a service worker can be used to cache pages and display them offline. It has a default offline fallback for pages that are not cached and for routes not annotated with `no_fallback`.
 
-View the deployed [offline demo app](https://offline-demo-app.onrender.com/).
+View the deployed [offline demo app](https://offline-demo-app.onrender.com/) (may take a little time to spin up).
 
 To avoid hard coded static URL paths in the service worker, routes are annotated with either `defaults: { offline_cache: true }`, `defaults: { warm_cache: true }` or `defaults: { no_fallback: true }`. This is a somewhat dirty approach since it means that controller params have `offline_cache`, `warm_cache` and `no_fallback` keys appended.
 
