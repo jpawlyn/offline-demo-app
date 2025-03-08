@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   get "offline" => "pwa#offline"
 
   # Defines the root path route ("/")
-  root "home#index"
+  root "home#home", defaults: { offline_cache: true }
 
-  get "show" => "home#show"
-  get "online-only" => "home#online_only"
+  get "offline-cached" => "home#offline_cached", defaults: { offline_cache: true }
+  get "warm-cached" => "home#warm_cached", defaults: { warm_cache: true }
+  get "online-only-with-fallback" => "home#online_only_with_fallback"
+  get "online-only" => "home#online_only", defaults: { no_fallback: true }
 end

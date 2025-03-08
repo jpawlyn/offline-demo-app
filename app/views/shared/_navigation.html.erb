@@ -1,3 +1,7 @@
-<p class="mt-6"><%= link_to 'Home', root_path, class: active_menu_class(root_path) %></p>
-<p class="mt-1"><%= link_to 'Show', show_path, class: active_menu_class(show_path) %></p>
-<p class="mt-1"><%= link_to 'Online only', online_only_path, class: active_menu_class(online_only_path) %></p>
+<div class="flex-none w-55 mt-8">
+  <p><%= link_to 'Home', root_path, class: active_menu_class(root_path) %></p>
+  <p class="mt-1"><%= link_to 'Warm cached', warm_cached_path, class: active_menu_class(warm_cached_path) %></p>
+  <p class="mt-1"><%= link_to 'Offline cached', offline_cached_path, class: active_menu_class(offline_cached_path) %></p>
+  <p class="mt-1"><%= link_to 'Online only with fallback', online_only_with_fallback_path, class: active_menu_class(online_only_with_fallback_path) %></p>
+  <p class="mt-1"><%= link_to 'Online only', online_only_path, class: active_menu_class(online_only_path) %></p>
+</div>

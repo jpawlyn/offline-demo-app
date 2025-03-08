@@ -7,18 +7,16 @@ importScripts(
 // workbox sw chrome console logging is on by default for localhost
 // to turn on for other hosts uncomment the code below
 // see https://developer.chrome.com/docs/workbox/troubleshooting-and-logging#without_a_bundler
-// workbox.setConfig({
-//   debug: true // or add .erb to the filename and use <%= !Rails.env.production? %>
-// });
+workbox.setConfig({
+  debug: <%= !Rails.env.production? %>
+});
 
 const updateServiceWorker = '1' // Increment this value if offline fallback page changes so it gets re-cached
-const cacheExpirationInSeconds = 1 * 60;
-const SW_IMAGE_CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v1';
 
 const { CacheFirst, NetworkFirst, NetworkOnly } = workbox.strategies;
 const { registerRoute } = workbox.routing;
 const { ExpirationPlugin } = workbox.expiration;
-const networkOnlyUrls = ['/online-only'];
 
 self.skipWaiting();
 
@@ -27,7 +25,7 @@ registerRoute(
   ({ request }) => request.destination === "script" ||
     request.destination === "style",
   new CacheFirst({
-    cacheName: 'assets-styles-and-scripts',
+    cacheName: `assets-styles-and-scripts-${CACHE_VERSION}`,
     plugins: [
       new ExpirationPlugin({
         maxEntries: 100
@@ -38,7 +36,7 @@ registerRoute(
 registerRoute(
   ({ request }) => request.destination === "image",
   new CacheFirst({
-    cacheName: `assets-images-${SW_IMAGE_CACHE_VERSION}`,
+    cacheName: `assets-images-${CACHE_VERSION}`,
     plugins: [
       new ExpirationPlugin({
         maxEntries: 100
@@ -47,14 +45,20 @@ registerRoute(
   })
 )
 
+const offline_cached_paths = <%= raw @offline_cached_paths.to_s %>;
+const warm_cached_paths = <%= raw @warm_cached_paths.to_s %>;
+const cached_paths = offline_cached_paths.concat(warm_cached_paths);
+const no_fallback_paths = <%= raw @no_fallback_paths.to_s %>;
+
 registerRoute(
-  ({ request, url }) => networkOnlyUrls.includes(url.pathname),
+  ({ request, url }) => !cached_paths.includes(url.pathname) && !no_fallback_paths.includes(url.pathname) &&
+    (request.destination === 'document' || request.destination === ''),
   new NetworkOnly()
 )
 
 // For pages, network first
 const documentsStrategyOptions = {
-  cacheName: 'documents',
+  cacheName: `documents-${CACHE_VERSION}`,
   matchOptions: { ignoreVary: true },
   plugins: [
     new ExpirationPlugin({
@@ -65,8 +69,8 @@ const documentsStrategyOptions = {
 
 // see https://developer.chrome.com/docs/workbox/modules/workbox-routing
 registerRoute(
-  ({ request, url }) => request.destination === 'document' ||
-    request.destination === '',
+  ({ request, url }) => !no_fallback_paths.includes(url.pathname) && (request.destination === 'document' ||
+    request.destination === ''),
   new NetworkFirst(documentsStrategyOptions)
 )
 
@@ -78,9 +82,8 @@ self.addEventListener('message', (event) => {
 
 // Warm runtime cache so urls are cached before they are visited
 const { warmStrategyCache } = workbox.recipes;
-const urls = ['/', '/show'];
 const strategy = new NetworkFirst(documentsStrategyOptions);
-warmStrategyCache({ urls, strategy });
+warmStrategyCache({ urls: warm_cached_paths, strategy });
 
 // Warm runtime cache with an offline URL
 const offlineUrls = ['/offline.html'];

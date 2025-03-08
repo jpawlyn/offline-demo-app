@@ -3,12 +3,15 @@
 # https://github.com/rails/rails/pull/54657
 class PwaController < ActionController::Base
   skip_forgery_protection
-  content_security_policy false, only: :service_worker
   layout "application", only: :offline
 
   def manifest; end
 
-  def service_worker; end
+  def service_worker
+    @offline_cached_paths = Rails.application.config.service_worker.offline_cached_paths
+    @warm_cached_paths = Rails.application.config.service_worker.warm_cached_paths
+    @no_fallback_paths = Rails.application.config.service_worker.no_fallback_paths
+  end
 
   def offline; end
 end

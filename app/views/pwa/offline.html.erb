@@ -1,12 +1,17 @@
 <main class="h-screen bg-gray-200 pt-18">
   <div class="container mx-auto px-5">
-    <h1 class="text-center">You are offline 🔥</h1>
-    <%= render 'shared/navigation' %>
+    <div class="flex mb-4">
+      <%= render 'shared/navigation' %>
 
-    <p class="mt-6 text-center">Please check your internet connection</p>
-    <p class="mt-6 text-center">
-      <button type="button" onClick="window.location.reload();" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Refresh
-      </button>
-    </p>
+      <div class="flex-1 text-center">
+        <h1>You are offline 🔥</h1>
+        <p class="mt-6 text-center">Please check your internet connection</p>
+        <p class="mt-6 text-center">
+          <button type="button" onClick="window.location.reload();" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-md text-sm px-4 py-2 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Refresh
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
 </main>
