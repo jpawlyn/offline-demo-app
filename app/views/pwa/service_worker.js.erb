@@ -19,12 +19,9 @@ const { registerRoute } = workbox.routing;
 const { ExpirationPlugin } = workbox.expiration;
 
 self.skipWaiting();
-
 // ensure that the service worker takes control immediately without requiring a reload
 // see https://frontendian.co/service-workers
-self.addEventListener('activate', event => {
-  clients.claim()
-})
+workbox.core.clientsClaim();
 
 // For assets (scripts, styles and images), we use cache first
 registerRoute(
