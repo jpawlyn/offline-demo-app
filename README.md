@@ -1,10 +1,10 @@
 # Offline Demo App
 
-This is a simple Ruby on Rails app showing how a service worker can be used to cache pages and display them offline using [Google Workbox](https://developer.chrome.com/docs/workbox). It has a default offline fallback for pages that are not cached and for routes not annotated with `no_fallback`.
+This is a simple Ruby on Rails app showing how a service worker can be used to cache pages and display them offline using [Google Workbox](https://developer.chrome.com/docs/workbox). It has a default offline fallback for pages that are not cached and for routes not annotated with `sw_no_fallback`.
 
 View the deployed [offline demo app](https://offline-demo-app.onrender.com/) (may take a little time to spin up).
 
-To avoid hard coded static URL paths in the service worker, routes are annotated with either `defaults: { offline_cache: true }`, `defaults: { warm_cache: true }` or `defaults: { no_fallback: true }`. This is a somewhat dirty approach since it means that controller params have `offline_cache`, `warm_cache` and `no_fallback` keys appended.
+To avoid hard coded static URL paths in the service worker, routes are annotated with either `defaults: { sw_offline_cache: true }`, `defaults: { sw_warm_cache: true }` or `defaults: { sw_no_fallback: true }`. This is a somewhat dirty approach since it means that controller params have `sw_offline_cache`, `sw_warm_cache` and `sw_no_fallback` keys inserted.
 
 Pages that are warm cached are cached as soon as the service worker is installed so even if a user never accesses a page they will be able to view it offline.
 

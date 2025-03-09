@@ -10,7 +10,7 @@ Rails.application.configure do
   end
 
   config.service_worker = ActiveSupport::OrderedOptions.new
-  config.service_worker.offline_cached_paths = select_routes_for(:offline_cache)
-  config.service_worker.warm_cached_paths = select_routes_for(:warm_cache)
-  config.service_worker.no_fallback_paths = select_routes_for(:no_fallback)
+  config.service_worker.offline_cached_paths = select_routes_for(:sw_offline_cache)
+  config.service_worker.warm_cached_paths = select_routes_for(:sw_warm_cache)
+  config.service_worker.no_fallback_paths = select_routes_for(:sw_no_fallback)
 end
