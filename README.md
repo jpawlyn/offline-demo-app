@@ -1,6 +1,6 @@
 # Offline Demo App
 
-This is a simple Ruby on Rails app showing how a service worker can be used to cache pages and display them offline. It has a default offline fallback for pages that are not cached and for routes not annotated with `no_fallback`.
+This is a simple Ruby on Rails app showing how a service worker can be used to cache pages and display them offline using [Google Workbox](https://developer.chrome.com/docs/workbox). It has a default offline fallback for pages that are not cached and for routes not annotated with `no_fallback`.
 
 View the deployed [offline demo app](https://offline-demo-app.onrender.com/) (may take a little time to spin up).
 
