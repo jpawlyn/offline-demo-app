@@ -8,7 +8,7 @@ To avoid hard coded static URL paths in the service worker, routes are annotated
 
 Pages that are warm cached are cached as soon as the service worker is installed so even if a user never accesses a page they will be able to view it offline.
 
-To cache dynamic paths you can use regular expressions or check what a [URL path starts with](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_first_network_falling_back_to_cache) in the `service_worker.js.erb` file.
+To cache dynamic paths and paths with query parameters (eg pagination) you can use regular expressions or check what a [URL path starts with](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_first_network_falling_back_to_cache) in the `service_worker.js.erb` file.
 
 **Note** Service workers are complicated so please use this demo just for ideas. A real life example of a sophisticated offline capable Rails app is the [Rails World Conference App](https://github.com/TelosLabs/rails-world).
 
