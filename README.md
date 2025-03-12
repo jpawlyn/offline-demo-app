@@ -4,9 +4,24 @@ This is a simple Ruby on Rails app showing how a service worker can be used to c
 
 View the deployed [offline demo app](https://offline-demo-app.onrender.com/) (may take a little time to spin up).
 
+## Design
+
 To avoid hard coded static URL paths in the service worker, routes are annotated with either `defaults: { sw_offline_cache: true }`, `defaults: { sw_warm_cache: true }` or `defaults: { sw_no_fallback: true }`. This is a somewhat dirty approach since it means that controller params have `sw_offline_cache`, `sw_warm_cache` and `sw_no_fallback` keys inserted.
 
 Pages that are warm cached are cached as soon as the service worker is installed so even if a user never accesses a page they will be able to view it offline.
+
+## Tests
+
+To run all the tests run the following command from the terminal:
+```sh
+bin/rspec -t run_first && bin/rspec
+```
+
+By default the tests run headless but to see them run in a browser, prefix both calls to `bin/rspec` with `HEADLESS=false`.
+
+By default `bin/rspec` excludes tests tagged with `run_first`.
+
+## Suggestions for handling other scenarios
 
 To cache dynamic paths and paths with query parameters (eg pagination) you can use regular expressions or check what a [URL path starts with](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_first_network_falling_back_to_cache) in the `service_worker.js.erb` file.
 
