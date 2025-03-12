@@ -23,6 +23,10 @@ By default `bin/rspec` excludes tests tagged with `run_first`.
 
 In order to test the service worker when offline, the selenium-webdriver gem has been [monkey patched](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/devtools_monkey_patch.rb). This was needed since the standard way of setting network conditions only applies to requests made directly from the browser to the server and not via a service worker.
 
+To go offline and online in system tests see [network_conditions.rb](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/network_conditions.rb).
+
+System tests should only run once the service worker has activated. To enforce this the [service worker state is checked](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/selenium_setup.rb) in a before hook and only when the state is activated do tests run.
+
 ## Suggestions for handling other scenarios
 
 To cache dynamic paths and paths with query parameters (eg pagination) you can use regular expressions or check what a [URL path starts with](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_first_network_falling_back_to_cache) in the `service_worker.js.erb` file.
