@@ -6,19 +6,29 @@ module Selenium
   module WebDriver
     module DriverExtensions
       module HasDevTools
-        def devtools_for_service_worker
-          @devtools_for_service_worker ||= begin
+        def devtools(target_type: 'page')
+          @devtools ||= {}
+          @devtools[target_type] ||= begin
             require 'selenium/devtools'
             Selenium::DevTools.version ||= devtools_version
             Selenium::DevTools.load_version
-            Selenium::WebDriver::DevTools.new(url: devtools_url, target_type: 'service_worker')
+            Selenium::WebDriver::DevTools.new(url: devtools_url, target_type: target_type)
           end
         end
       end
     end
 
+    class Driver
+      def quit
+        bridge.quit
+      ensure
+        @service_manager&.stop
+        @devtools&.values&.map(&:close)
+      end
+    end
+
     class DevTools
-      def initialize(url:, target_type: 'page')
+      def initialize(url:, target_type:)
         @ws = WebSocketConnection.new(url: url)
         @session_id = nil
         start_session(target_type:)
