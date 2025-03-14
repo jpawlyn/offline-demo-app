@@ -17,17 +17,17 @@ To run all the tests run the following command from the terminal:
 bin/rspec -t run_first && bin/rspec
 ```
 
-By default the tests run headless but to see them run in a browser, prefix both calls to `bin/rspec` with `HEADLESS=false`.
+By default the tests run headless but to see them run in a browser, prefix both calls to `bin/rspec` with `HEADLESS=false`. By default running just `bin/rspec` excludes tests tagged with `run_first`.
 
-By default `bin/rspec` excludes tests tagged with `run_first`.
-
-In order to test the service worker when offline, the selenium-webdriver gem has been [monkey patched](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/devtools_monkey_patch.rb). This was needed since the standard way of setting network conditions only applies to requests made directly from the browser to the server and not via a service worker.
-
-The [cuprite chrome driver](https://github.com/rubycdp/cuprite) does not support service workers yet but this [could change](https://github.com/rubycdp/ferrum/pull/391).
-
-To go offline and online in system tests see [network_conditions.rb](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/network_conditions.rb).
+The [selenium-webdriver gem](https://github.com/SeleniumHQ/selenium/tree/trunk/rb#selenium-webdriver) is being used to run system tests since [cuprite chrome driver](https://github.com/rubycdp/cuprite) does not support service workers yet but this [could change](https://github.com/rubycdp/ferrum/pull/391).
 
 System tests should only run once the service worker has activated. To enforce this the [service worker state is checked](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/selenium_setup.rb) in a before hook and only when the state is activated do tests run.
+
+### Offline
+
+To test the service worker when running offline, the selenium-webdriver gem has been [monkey patched](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/devtools_monkey_patch.rb). This is needed since  setting network conditions only applies to requests made directly from the browser to the server and not via a service worker.
+
+To go offline and online programmatically see [network_conditions.rb](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/network_conditions.rb).
 
 ## Suggestions for handling other scenarios
 
