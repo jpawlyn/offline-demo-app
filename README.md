@@ -31,7 +31,7 @@ System tests should only run once the service worker has activated. To enforce t
 
 ## Suggestions for handling other scenarios
 
-To cache dynamic paths and paths with query parameters (eg pagination) you can use regular expressions or check what a [URL path starts with](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_first_network_falling_back_to_cache) in the `service_worker.js.erb` file.
+To cache dynamic paths and paths with query parameters (eg pagination) you can use [regular expressions](https://developer.chrome.com/docs/workbox/modules/workbox-routing#how_to_register_a_regular_expression_route) or check what a [URL path starts with](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_first_network_falling_back_to_cache) in the `service_worker.js.erb` file.
 
 
 ## References
