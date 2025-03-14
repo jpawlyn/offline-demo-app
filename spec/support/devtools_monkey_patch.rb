@@ -24,7 +24,7 @@ module Selenium
         bridge.quit
       ensure
         @service_manager&.stop
-        @devtools&.values&.map(&:close)
+        @devtools&.values&.each(&:close)
       end
     end
 
