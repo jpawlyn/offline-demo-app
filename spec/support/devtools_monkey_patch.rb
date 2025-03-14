@@ -1,7 +1,8 @@
-# support setting network conditions on service worker
-# see:
+# support setting network conditions on service worker - see:
 # https://chromedevtools.github.io/devtools-protocol/tot/Target/
 # https://github.com/puppeteer/puppeteer/issues/4305#issuecomment-485048253
+#
+# This patch can be removed once https://github.com/SeleniumHQ/selenium/pull/15416 has been released
 module Selenium
   module WebDriver
     module DriverExtensions
