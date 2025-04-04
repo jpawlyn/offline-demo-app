@@ -8,7 +8,7 @@ View the deployed [offline demo app](https://offline-demo-app.onrender.com/) (ma
 
 ## Design
 
-To avoid hard coded static URL paths in the service worker, routes are annotated using the `defaults:` [option](https://guides.rubyonrails.org/routing.html#defining-default-parameters) by setting `sw_offline_cache:`, `sw_warm_cache:` or `sw_no_fallback:` to `true`.
+To avoid hard coded static paths in the service worker, routes are annotated using the `defaults:` [option](https://guides.rubyonrails.org/routing.html#defining-default-parameters) by setting `sw_offline_cache:`, `sw_warm_cache:` or `sw_no_fallback:` to `true`.
 
 Pages that are warm cached are cached as soon as the service worker is installed so even if a user never accesses a page they will be able to view it offline.
 
