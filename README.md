@@ -25,8 +25,6 @@ System tests should only run once the service worker has activated. To enforce t
 
 ### Offline
 
-To test the service worker when running offline, the selenium-webdriver gem has been [monkey patched](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/devtools_monkey_patch.rb). This is needed since  setting network conditions only applies to requests made directly from the browser to the server and not via a service worker.
-
 To go offline and online programmatically see [network_conditions.rb](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/network_conditions.rb).
 
 ## Suggestions for handling other scenarios
