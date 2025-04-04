@@ -4,6 +4,8 @@ This is a simple Ruby on Rails app showing how a service worker can be used to c
 
 It has a default offline fallback for pages that are not found in the cache but are registered with the service worker. This applies to pages that are registered with a [NetworkOnly](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_only) or a [NetworkFirst](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_first_network_falling_back_to_cache) strategy (for this latter strategy either the page was never cached or the cache expired or was deleted).
 
+The service worker caching is covered by system tests. This is made possible by setting [network conditions](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/network_conditions.rb) for both the browser and the service worker.
+
 View the deployed [offline demo app](https://offline-demo-app.onrender.com/) (may take a little time to spin up).
 
 ## Design
@@ -24,10 +26,6 @@ By default the tests run headless but to see them run in a browser, prefix both 
 The [selenium-webdriver gem](https://github.com/SeleniumHQ/selenium/tree/trunk/rb#selenium-webdriver) is being used to run system tests since [cuprite chrome driver](https://github.com/rubycdp/cuprite) does not support service workers yet but this [could change](https://github.com/rubycdp/ferrum/pull/391).
 
 System tests should only run once the service worker has activated. To enforce this the [service worker state is checked](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/selenium_setup.rb) in a before hook and only when the state is activated do tests run.
-
-### Offline
-
-To go offline and online programmatically see [network_conditions.rb](https://github.com/jpawlyn/offline-demo-app/blob/main/spec/support/network_conditions.rb).
 
 ## Suggestions for handling other scenarios
 
