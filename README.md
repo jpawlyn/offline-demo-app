@@ -2,13 +2,13 @@
 
 This is a simple Ruby on Rails app showing how a service worker can be used to cache pages and display them offline using [Google Workbox](https://developer.chrome.com/docs/workbox).
 
-It has a default offline fallback for pages that are found in the cache but are registered with the service worker. This applies to pages that are registered with a [NetworkOnly](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_only) and a [NetworkFirst](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_first_network_falling_back_to_cache) strategy (for this latter strategy either the page was never cached or the cache expired or was deleted).
+It has a default offline fallback for pages that are not found in the cache but are registered with the service worker. This applies to pages that are registered with a [NetworkOnly](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_only) or a [NetworkFirst](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_first_network_falling_back_to_cache) strategy (for this latter strategy either the page was never cached or the cache expired or was deleted).
 
 View the deployed [offline demo app](https://offline-demo-app.onrender.com/) (may take a little time to spin up).
 
 ## Design
 
-To avoid hard coded static URL paths in the service worker, routes are annotated with `defaults: { sw_offline_cache: true }`, `defaults: { sw_warm_cache: true }` or `defaults: { sw_no_fallback: true }`. This is perhaps a somewhat dirty approach since it means that controller params have `sw_offline_cache`, `sw_warm_cache` and `sw_no_fallback` keys inserted.
+To avoid hard coded static URL paths in the service worker, routes are annotated using the `defaults:` [option](https://guides.rubyonrails.org/routing.html#defining-default-parameters) by setting `sw_offline_cache:`, `sw_warm_cache:` or `sw_no_fallback:` to `true`.
 
 Pages that are warm cached are cached as soon as the service worker is installed so even if a user never accesses a page they will be able to view it offline.
 
