@@ -1,12 +1,14 @@
 # Offline Demo App
 
-This is a simple Ruby on Rails app showing how a service worker can be used to cache pages and display them offline using [Google Workbox](https://developer.chrome.com/docs/workbox). It has a default offline fallback for pages that are not cached and for routes not annotated with `sw_no_fallback`.
+This is a simple Ruby on Rails app showing how a service worker can be used to cache pages and display them offline using [Google Workbox](https://developer.chrome.com/docs/workbox).
+
+It has a default offline fallback for pages that are found in the cache but are registered with the service worker. This applies to pages that are registered with a [NetworkOnly](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_only) and a [NetworkFirst](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_first_network_falling_back_to_cache) strategy (for this latter strategy either the page was never cached or the cache expired or was deleted).
 
 View the deployed [offline demo app](https://offline-demo-app.onrender.com/) (may take a little time to spin up).
 
 ## Design
 
-To avoid hard coded static URL paths in the service worker, routes are annotated with either `defaults: { sw_offline_cache: true }`, `defaults: { sw_warm_cache: true }` or `defaults: { sw_no_fallback: true }`. This is a somewhat dirty approach since it means that controller params have `sw_offline_cache`, `sw_warm_cache` and `sw_no_fallback` keys inserted.
+To avoid hard coded static URL paths in the service worker, routes are annotated with `defaults: { sw_offline_cache: true }`, `defaults: { sw_warm_cache: true }` or `defaults: { sw_no_fallback: true }`. This is perhaps a somewhat dirty approach since it means that controller params have `sw_offline_cache`, `sw_warm_cache` and `sw_no_fallback` keys inserted.
 
 Pages that are warm cached are cached as soon as the service worker is installed so even if a user never accesses a page they will be able to view it offline.
 
@@ -30,7 +32,6 @@ To go offline and online programmatically see [network_conditions.rb](https://gi
 ## Suggestions for handling other scenarios
 
 To cache dynamic paths and paths with query parameters (eg pagination) you can use [regular expressions](https://developer.chrome.com/docs/workbox/modules/workbox-routing#how_to_register_a_regular_expression_route) or check what a [URL path starts with](https://developer.chrome.com/docs/workbox/modules/workbox-strategies#network_first_network_falling_back_to_cache) in the `service_worker.js.erb` file.
-
 
 ## References
 
